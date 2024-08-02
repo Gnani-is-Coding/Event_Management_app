@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter,Router,Route } from 'react-router-dom';
+import { BrowserRouter,Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -16,14 +16,14 @@ function App() {
       <div className="app">
         <Header user={user} setUser={setUser} />
         <main>
-          <Router>
+          <Routes>
             <Route exact path="/" element=<EventList/> />
             <Route path="/login" render={(props) => <Login {...props} setUser={setUser} />} />
             <Route path="/register" element={<Register/>} />
             <Route path="/events/new" element={<EventForm/>} />
             <Route path="/events/:id" element={<EventForm/>} />
             <Route path="/sessions" element={<SessionList/>} />
-          </Router>
+          </Routes>
         </main>
         <footer>
           <p>&copy; 2024 Event Manager. All rights reserved.</p>
