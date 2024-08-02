@@ -10,6 +10,7 @@ router.post('/:location', async (req, res) => {
   try {
     const response = await fetch(url)
 
+    console.log(response, "response")
     res.send(JSON.stringify(response.data))
 
   } catch(e) {
