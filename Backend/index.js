@@ -13,7 +13,15 @@ const app = express()
 
 app.use(express.json())
 app.use(cors())
+
 const PORT = process.env.PORT || 3000
+
+const authRoutes = require("./Routes/auth") 
+
+app.use('/auth', authRoutes)
+
+
+
 
 app.listen(PORT, () => {
     console.log("Listening to Port", PORT)
