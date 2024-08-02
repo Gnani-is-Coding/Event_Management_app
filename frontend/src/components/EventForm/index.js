@@ -1,105 +1,68 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import './index.css'
 
-function EventForm() {
-  const [name, setName] = useState('');
-  const [date, setDate] = useState('');
-  const [location, setLocation] = useState('');
-  const [description, setDescription] = useState('');
-  const [weather, setWeather] = useState(null);
+const CreateEventForm = () => {
+  const [eventName, setEventName] = useState('');
+  const [eventDate, setEventDate] = useState('');
+  const [eventLocation, setEventLocation] = useState('');
+  const [eventDescription, setEventDescription] = useState('');
 
-  const { id } = useParams();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (id) {
-      // Fetch event details if editing an existing event
-      fetchEventDetails();
-    }
-  }, [id]);
-
-  const fetchEventDetails = async () => {
-    // Implement API call to fetch event details
-    // Update state with fetched event details
-  };
-
-  const fetchWeather = async () => {
-    // Implement API call to fetch weather for the location
-    // setWeather(weatherData);
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const eventData = { name, date, location, description };
-    
-    if (id) {
-      // Update existing event
-      // Implement API call to update event
-    } else {
-      // Create new event
-      // Implement API call to create event
-    }
-
-    // Redirect to event list on success
-      navigate('/events')
+    // Handle form submission logic here
+    console.log({ eventName, eventDate, eventLocation, eventDescription });
   };
 
   return (
-    <div className="event-form">
-      <h2>{id ? 'Edit Event' : 'Create New Event'}</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Event Name:</label>
+    <div className='event-form-container'>
+      <img src="/appointments-img.png" alt="events" className='appointment-img'/>
+    <section id="create" className="create-event">
+      <h2>Create New Event</h2>
+      <form className="create-event-form" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="eventName">Event Name</label>
           <input
             type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            id="eventName"
+            value={eventName}
+            onChange={(e) => setEventName(e.target.value)}
             required
           />
         </div>
-        <div>
-          <label htmlFor="date">Date:</label>
+        <div className="form-group">
+          <label htmlFor="eventDate">Date</label>
           <input
             type="date"
-            id="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
+            id="eventDate"
+            value={eventDate}
+            onChange={(e) => setEventDate(e.target.value)}
             required
           />
         </div>
-        <div>
-          <label htmlFor="location">Location:</label>
+        <div className="form-group">
+          <label htmlFor="eventLocation">Location</label>
           <input
             type="text"
-            id="location"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
+            id="eventLocation"
+            value={eventLocation}
+            onChange={(e) => setEventLocation(e.target.value)}
             required
           />
-          <button type="button" onClick={fetchWeather}>Check Weather</button>
         </div>
-        {weather && (
-          <div className="weather-info">
-            <h3>Weather for {location}</h3>
-            <p>{weather.description}</p>
-            <p>Temperature: {weather.temperature}°C</p>
-          </div>
-        )}
-        <div>
-          <label htmlFor="description">Description:</label>
+        <div className="form-group">
+          <label htmlFor="eventDescription">Description</label>
           <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            id="eventDescription"
+            value={eventDescription}
+            onChange={(e) => setEventDescription(e.target.value)}
             required
           />
         </div>
-        <button type="submit">{id ? 'Update Event' : 'Create Event'}</button>
+        <button type="submit" className="btn btn-primary">Create Event</button>
       </form>
+    </section>
     </div>
   );
-}
+};
 
-export default EventForm;
+export default CreateEventForm;

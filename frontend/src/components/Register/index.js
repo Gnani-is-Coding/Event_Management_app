@@ -15,6 +15,7 @@ function Register() {
   };
 
   return (
+    <div className='register-container'>
     <div className="register-form">
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
@@ -51,6 +52,8 @@ function Register() {
         <button type="submit" className="submit-btn">Register</button>
       </form>
     </div>
+     <img src="/appointments-img.png" alt="events image" className='events-image'/>
+     </div>
   );
 }
 

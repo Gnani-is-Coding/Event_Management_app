@@ -18,10 +18,10 @@ function App() {
         <main>
           <Routes>
             <Route exact path="/" element={<EventList/>} />
-            <Route path="/login" render={(props) => <Login {...props} setUser={setUser} />} />
+            <Route path="/login" element= {<Login  setUser={setUser} />} />
             <Route path="/register" element={<Register/>} />
             <Route path="/events/new" element={<EventForm/>} />
-            <Route path="/events/:id" element={<EventForm/>} />
+            <Route path="/events/:id" element={<EventList/>} />
             <Route path="/sessions" element={<SessionList/>} />
           </Routes>
         </main>

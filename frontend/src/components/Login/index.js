@@ -15,6 +15,7 @@ function Login({ setUser }) {
   };
 
   return (
+    <div className='login-container'>
     <div className="login-form">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
@@ -40,6 +41,8 @@ function Login({ setUser }) {
         </div>
         <button type="submit" className="submit-btn">Login</button>
       </form>
+    </div>
+    <img src="/appointments-img.png" alt="events image" className='events-image'/>
     </div>
   );
 }
