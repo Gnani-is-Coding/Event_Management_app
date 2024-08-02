@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './index.css'
+import EventList from '../EventList';
 
 const CreateEventForm = () => {
   const [eventName, setEventName] = useState('');
@@ -14,6 +15,7 @@ const CreateEventForm = () => {
   };
 
   return (
+    <div className='container'>
     <div className='event-form-container'>
       <img src="/appointments-img.png" alt="events" className='appointment-img'/>
     <section id="create" className="create-event">
@@ -60,6 +62,11 @@ const CreateEventForm = () => {
         </div>
         <button type="submit" className="btn btn-primary">Create Event</button>
       </form>
+    </section>
+    </div>
+
+    <section>
+      <EventList/>
     </section>
     </div>
   );

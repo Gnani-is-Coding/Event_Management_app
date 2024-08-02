@@ -1,5 +1,10 @@
+.container {
+  width: 95%;
+}
+
 .create-event {
   width: 75%;
+  max-width: 600px
 }
 .create-event h2 {
   margin-bottom: 1rem;
@@ -69,5 +74,11 @@ input:focus, textarea:focus {
 @media screen and (min-width: 768px) {
   .appointment-img {
     display: flex;
+  }
+}
+
+@media screen and (min-width: 1020px) {
+  .appointment-img {
+    width: 500px;
   }
 }

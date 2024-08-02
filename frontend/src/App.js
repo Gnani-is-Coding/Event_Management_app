@@ -17,11 +17,10 @@ function App() {
         <Header user={user} setUser={setUser} />
         <main>
           <Routes>
-            <Route exact path="/" element={<EventList/>} />
+            <Route exact path="/" element={<EventForm/>} />
             <Route path="/login" element= {<Login  setUser={setUser} />} />
             <Route path="/register" element={<Register/>} />
             <Route path="/events/new" element={<EventForm/>} />
-            <Route path="/events/:id" element={<EventList/>} />
             <Route path="/sessions" element={<SessionList/>} />
           </Routes>
         </main>

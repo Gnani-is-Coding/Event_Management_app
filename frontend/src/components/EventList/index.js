@@ -1,46 +1,51 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import './index.css'
 
-function EventList() {
-  const [events, setEvents] = useState([]);
+const events = [
+  {
+    title: "Tech Conference 2024",
+    date: "August 15, 2024",
+    location: "San Francisco, CA",
+    description: "Annual tech conference featuring the latest innovations in AI, VR, and blockchain technologies.",
+    weather: "72°F, Sunny"
+  },
+  {
+    title: "Product Launch",
+    date: "September 5, 2024",
+    location: "New York, NY",
+    description: "Launching our new AI-powered smart home device with interactive demos and networking opportunities.",
+    weather: "78°F, Partly Cloudy"
+  }
+];
 
-  useEffect(() => {
-    // Fetch events from API
-    // For demonstration, we'll use dummy data
-    setEvents([
-      { id: 1, name: 'Tech Conference', date: '2024-09-15', location: 'San Francisco' },
-      { id: 2, name: 'Music Festival', date: '2024-07-20', location: 'New York' },
-    ]);
-  }, []);
-
-  const handleDeleteEvent = (id) => {
-    // Implement delete logic here
-    setEvents(events.filter(event => event.id !== id));
-  };
-
-  return (
-    <div className="event-list">
-      <h2>My Events</h2>
-      <Link to="/events/new" className="btn-add">Add New Event</Link>
-      {events.length === 0 ? (
-        <p>No events found. Create a new event to get started!</p>
-      ) : (
-        <ul>
-          {events.map(event => (
-            <li key={event.id} className="event-item">
-              <h3>{event.name}</h3>
-              <p>{event.date} - {event.location}</p>
-              <div className="event-actions">
-                <Link to={`/events/${event.id}`}>Edit</Link>
-                <button onClick={() => handleDeleteEvent(event.id)} className="delete-btn">Delete</button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+const EventCard = ({ title, date, location, description, weather }) => (
+  <div className="event-card">
+    <div className="event-details">
+      <h3 className="event-title">{title}</h3>
+      <p className="event-info">{date} • {location}</p>
+      <p className="event-description">{description}</p>
+      <div className="event-actions">
+        <span className="weather-info">{weather}</span>
+        <div>
+          <button className="btn btn-danger">Delete</button>
+          <button className="btn btn-primary">Edit</button>
+        </div>
+      </div>
     </div>
-  );
-}
+  </div>
+);
+
+
+const EventList = () => (
+
+  <section id="events" className="event-list">
+    <h1>Your Upcoming Events</h1>
+    <div className="events-grid">
+      {events.map((event, index) => (
+        <EventCard key={index} {...event} />
+      ))}
+    </div>
+  </section>
+);
 
 export default EventList;

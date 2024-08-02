@@ -15,7 +15,7 @@ function Header({ user, setUser }) {
   return (
     <>
     <header className="header">
-      <h1>Events</h1>
+      <Link to="/" style={{textDecoration: "none", color: "#ffffff"}}><h1>Events</h1></Link>
       <nav className="nav">
         {user ? (
           <>
