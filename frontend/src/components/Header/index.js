@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import {AlignJustify, ChevronDown} from "lucide-react" 
 import './index.css'
 
 function Header({ user, setUser }) {
+  const [openMenu, setOpenMenu] = useState(false)
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -11,8 +13,9 @@ function Header({ user, setUser }) {
   };
 
   return (
+    <>
     <header className="header">
-      <h1>Event Manager</h1>
+      <h1>Events</h1>
       <nav className="nav">
         {user ? (
           <>
@@ -27,8 +30,16 @@ function Header({ user, setUser }) {
             <Link to="/register">Register</Link>
           </>
         )}
+         <AlignJustify className='menu-icon' onClick={() => setOpenMenu(!openMenu)}/>
       </nav>
     </header>
+    <div className='sm-links-container' style={{display: openMenu ? "block" : "none"}}>
+    <p className="sm-links">Login</p>
+    <p className="sm-links">Register</p>
+    <p className="sm-links">Events</p>
+    <p className="sm-links" style={{display: "flex", alignItems: "center", gap:'10px'}}>Contact <ChevronDown/></p>
+</div>
+</>
   );
 }
 

@@ -17,7 +17,7 @@ function App() {
         <Header user={user} setUser={setUser} />
         <main>
           <Routes>
-            <Route exact path="/" element=<EventList/> />
+            <Route exact path="/" element={<EventList/>} />
             <Route path="/login" render={(props) => <Login {...props} setUser={setUser} />} />
             <Route path="/register" element={<Register/>} />
             <Route path="/events/new" element={<EventForm/>} />
@@ -25,9 +25,9 @@ function App() {
             <Route path="/sessions" element={<SessionList/>} />
           </Routes>
         </main>
-        <footer>
+        {/* <footer>
           <p>&copy; 2024 Event Manager. All rights reserved.</p>
-        </footer>
+        </footer> */}
       </div>
     </BrowserRouter>
   );

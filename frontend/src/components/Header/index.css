@@ -2,10 +2,11 @@
 .header {
     background-color: var(--primary-color);
     color: white;
-    padding: 1rem;
+    padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-family: Cursive;
   }
   
   .header h1 {
@@ -15,7 +16,8 @@
   
   .nav {
     display: flex;
-    gap: 1rem;
+    gap: 0.8rem;
+    align-items: center;
   }
   
   .nav a, .nav button {
@@ -32,14 +34,21 @@
   .nav a:hover, .nav button:hover {
     background-color: rgba(255, 255, 255, 0.2);
   }
+
+  .sm-links-container {
+    display:block;
+    padding: 5px 0px 10px 20px;
+    font-weight: bold;
+  }
   
-  @media (max-width: 768px) {
-    .header {
-      flex-direction: column;
-      text-align: center;
+  @media (min-width: 648px) {
+    .menu-icon {
+      display: none;
     }
-  
-    .nav {
-      margin-top: 1rem;
+    .sm-links-container{
+      display: none;
+    }
+    .header{
+      padding: 20px 35px 20px 35px;
     }
   }
