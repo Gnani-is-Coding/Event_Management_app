@@ -31,9 +31,9 @@ const CreateEventForm = () => {
     <div className='container'>
     <div className='event-form-container'>
       <img src="/appointments-img.png" alt="events" className='appointment-img'/>
-    <section id="create" className="create-event">
+    <section id="New" className="create-event">
       <h2>Create New Event</h2>
-      <form className="create-event-form" onSubmit={handleSubmit}>
+      <form  className="create-event-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="eventName">Event Name</label>
           <input

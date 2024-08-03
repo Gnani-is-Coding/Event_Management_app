@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Cookies from "js-cookie"  
 import './index.css'; 
 
 function SessionList() {
@@ -10,8 +11,23 @@ function SessionList() {
   }, []);
 
   const fetchSessions = async () => {
-    // Implement API call to fetch sessions
-    // setSessions(fetchedSessions);
+    const url = "http://localhost:3000/sessions/"
+
+      const options = {
+        method: 'GET',
+        headers: {
+          'Content-Type': "application/json",
+          'Authorization': `Bearer ${Cookies.get("jwt_token")}`
+        }
+      }
+
+      const response = await fetch(url, options);
+      const result = await response.json();
+      console.log(result, "sessions")
+       
+      if (response.ok) {
+        setSessions(result)
+      } 
   };
 
   return (
@@ -26,14 +42,16 @@ function SessionList() {
               <th>Login Time</th>
               <th>Logout Time</th>
               <th>IP Address</th>
+              <th>Name</th>
             </tr>
           </thead>
           <tbody>
             {sessions.map(session => (
-              <tr key={session.id}>
+              <tr key={session._id}>
                 <td>{new Date(session.loginTime).toLocaleString()}</td>
                 <td>{session.logoutTime ? new Date(session.logoutTime).toLocaleString() : 'Active'}</td>
                 <td>{session.ipAddress}</td>
+                <td>{session.userId.name}</td>
               </tr>
             ))}
           </tbody>

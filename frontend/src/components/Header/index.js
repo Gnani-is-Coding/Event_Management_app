@@ -45,8 +45,8 @@ function Header({ user, setUser }) {
       <nav className="nav">
         {user ? (
           <>
-            <Link to="/">My Events</Link>
-            <Link to="/events/new">Create Event</Link>
+            <a href="#Events">My Events</a>
+            <a href="#New">Create Event</a>
             <Link to="/sessions">Sessions</Link>
             <button onClick={handleLogout} style={{background: "transparent", border: "1px solid"}}>Logout</button>
           </>

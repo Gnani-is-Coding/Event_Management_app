@@ -97,7 +97,7 @@ const EventCard = ({ event, onEdit, onDelete }) => {
               </div>
             ) : (
               <div className='delete-edit-container'>
-                <button className="btn btn-danger" onClick={() => onDelete(event.id)}>Delete</button>
+                <button className="btn btn-danger" onClick={() => onDelete(event._id)}>Delete</button>
                 <button className="btn btn-primary" onClick={handleEdit}><Edit2 size={16} /> Edit</button>
               </div>
             )}
@@ -119,14 +119,38 @@ const EventList = () => {
     );
   };
 
-  const handleDelete = (id) => {
-    setEventList(prevEvents => prevEvents.filter(event => event.id !== id));
+  const handleDelete = async (id) => {
+    console.log(id, "id to delete")
+
+    const url = `http://localhost:3000/events/${id}`
+    console.log(url, "url")
+    
+  try {
+    // Simulated API call
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': "application/json",
+        'Authorization': `Bearer ${Cookies.get("jwt_token")}`
+      }  
+    }
+
+    const response = await fetch(url, options);
+    const result = await response.json();
+    console.log(result, "event delete result")
+
+    if (response.ok){
+      setEventList(prevEvents => prevEvents.filter(event => event._id !== id));
+    }
+  } catch(e) {
+    console.log("Error while Deleting an Event")
+  }
   };
 
   return (
-    <section id="events" className="event-list">
-      <h1>Your Upcoming Events</h1>
-      {eventList.length > 0 ? (<div className="events-grid">
+    <section id="Events" className="event-list">
+      <h1 >Your Upcoming Events</h1>
+      {eventList.length > 0 ? (<div  className="events-grid">
         {eventList.map((event) => (
           <EventCard 
             key={event._id}
