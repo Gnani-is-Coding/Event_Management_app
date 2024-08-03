@@ -43,6 +43,7 @@ router.put("/:id", async(req, res) => {
     
     try {
         console.log(id, "id from put req")
+        console.log(req.body)
         const event = await Events.updateOne({_id: req.params.id}, {$set: {...req.body}})
 
         if(!event) return res.status(404).json({error: "Event not Found"})

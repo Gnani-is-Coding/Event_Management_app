@@ -25,7 +25,7 @@ const EventCard = ({ event, onEdit, onDelete }) => {
           'Content-Type': "application/json",
           'Authorization': `Bearer ${Cookies.get("jwt_token")}`
         },
-        body: JSON.stringify({editedEvent})  
+        body: JSON.stringify(editedEvent)  
       }
 
       const response = await fetch(url, options);
