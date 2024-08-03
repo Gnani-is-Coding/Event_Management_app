@@ -1,6 +1,7 @@
 const express = require("express")
 const Events = require("../Models/Events")
 const authMiddleware = require("../AuthMiddleware")
+require("dotenv").config()
 
 
 const router = express.Router()
@@ -22,8 +23,13 @@ router.get("/", async(req, res) => {
 
 router.post("/", async(req, res) => {
     const {title, date, location, description} = req.body
+    //const url = `http://api.weatherapi.com/v1/current.json?key=${process.env.WEATHER_API_KEY}&q=${location}`
 
     try {
+        // const weatherInfo = await  fetch(url)
+        // const weatherResponse = await weatherInfo.json()
+        // console.log(weatherInfo, "info")
+
         const newEvent = await Events.create({title, date, location, description, userId: req.user.id})
         
         return res.send(newEvent)

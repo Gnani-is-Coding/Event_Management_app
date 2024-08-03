@@ -4,12 +4,11 @@ http://localhost:3000/events/
 ###
 POST http://localhost:3000/auth/register 
 Content-Type: application/json
-Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6InZPQVhIN1FWa1FLdXg1V3MiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2N0YWZhb3RvdndqYXp2c2ljbG1zLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiIzZDQ2MGQ2NC05ODJkLTQ5Y2EtYTFlNS02MzU5MmE4NDE0YmIiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzIyNjgwNTEwLCJpYXQiOjE3MjI2NzY5MTAsImVtYWlsIjoiZ25hbmlAZ21haWwuY29tIiwicGhvbmUiOiIiLCJhcHBfbWV0YWRhdGEiOnsicHJvdmlkZXIiOiJlbWFpbCIsInByb3ZpZGVycyI6WyJlbWFpbCJdfSwidXNlcl9tZXRhZGF0YSI6eyJlbWFpbCI6ImduYW5pQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwicGhvbmVfdmVyaWZpZWQiOmZhbHNlLCJzdWIiOiIzZDQ2MGQ2NC05ODJkLTQ5Y2EtYTFlNS02MzU5MmE4NDE0YmIifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTcyMjY3NjkxMH1dLCJzZXNzaW9uX2lkIjoiOWYyZjNiMjQtNWExNi00ZTlkLWFlNjAtMzE4NjE3MmQxMzAyIiwiaXNfYW5vbnltb3VzIjpmYWxzZX0.lUWpdIJTd7RAV6AReGKkU6xuhcydKnaVJBtCoTU-IzE' 
 
 {
-    "name": "Gnanendra Gariminti",
-    "email": "demo@gmail.com",
-    "password": "123456" 
+    "name": "Upendra G",
+    "email": "demo1@gmail.com",
+    "password": "123456"
 }
 
 ###

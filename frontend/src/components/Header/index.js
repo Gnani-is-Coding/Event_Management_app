@@ -8,6 +8,8 @@ function Header({ user, setUser }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+
+    
     setUser(null);
     navigate('/login');
   };
@@ -22,11 +24,11 @@ function Header({ user, setUser }) {
             <Link to="/">My Events</Link>
             <Link to="/events/new">Create Event</Link>
             <Link to="/sessions">Sessions</Link>
-            <button onClick={handleLogout}>Logout</button>
+            <button onClick={handleLogout} style={{background: "transparent", border: "1px solid"}}>Logout</button>
           </>
         ) : (
           <>
-            <Link to="/login">Login</Link>
+            <Link to="/login" >Login</Link>
             <Link to="/register">Register</Link>
           </>
         )}
