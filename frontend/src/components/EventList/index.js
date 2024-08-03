@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Edit2, Save, X } from 'lucide-react';
 import './index.css';
 import { useEvents } from '../../context';
@@ -7,6 +7,25 @@ import Cookies from "js-cookie"
 const EventCard = ({ event, onEdit, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedEvent, setEditedEvent] = useState(event);
+  const [weatherDetails, setWeatherDetails] = useState('')
+
+  useEffect(() => {
+    fetchWeather()
+  }, [])
+
+  const fetchWeather = async () => {
+    const url = `http://api.weatherapi.com/v1/current.json?key=4755c6532fc842b292175323240208&q=${event.location}`
+
+    try { 
+      const response = await fetch(url)
+      const result = await response.json()
+      console.log(result, "result")
+
+      setWeatherDetails(result)
+    } catch(e) {
+      console.error(e.message, "error message")
+    }
+  }
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -50,6 +69,10 @@ const EventCard = ({ event, onEdit, onDelete }) => {
     setEditedEvent(prev => ({ ...prev, [name]: value }));
   };
 
+  const date = new Date(event.date).toUTCString()
+  const temp = weatherDetails?.current?.temp_c
+  const text = weatherDetails?.current?.condition?.text
+
   return (
     <div className="event-card">
       <div className="event-details">
@@ -83,12 +106,15 @@ const EventCard = ({ event, onEdit, onDelete }) => {
         ) : (
           <>
             <h3 className="event-title">{event.title}</h3>
-            <p className="event-info">{event.date} • {event.location}</p>
+            <p className="event-info">{date} • {event.location}</p>
             <p className="event-description">{event.description}</p>
+            <hr/>
           </>
         )}
         <div className="event-actions">
-          <span className="weather-info">{event.weather}</span>
+          <span className="weather-info">{temp} oC, {weatherDetails?.current?.condition?.text}
+            <img src={weatherDetails?.current?.condition?.icon} alt />
+          </span>
           <div>
             {isEditing ? (
               <div className='delete-edit-container'>

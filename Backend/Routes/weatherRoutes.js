@@ -6,6 +6,7 @@ router.post('/:location', async (req, res) => {
   const {location} = req.params 
 
   const url = `http://api.weatherapi.com/v1/current.json?key=${process.env.WEATHER_API_KEY}&q=${location}`
+  
 
   try {
     const response = await fetch(url)

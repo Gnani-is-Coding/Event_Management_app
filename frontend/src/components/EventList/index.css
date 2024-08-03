@@ -46,11 +46,13 @@
   font-size: 0.9rem;
   color: #666;
   margin-bottom: 1rem;
+  font-weight: bold;
 }
 
 .event-description {
   font-size: 0.95rem;
   margin-bottom: 1rem;
+  font-weight: bold;
 }
 
 .event-actions {
