@@ -1,6 +1,7 @@
 const express = require("express")
 const supabase = require("../Config/supabase")
 const User = require("../Models/User")
+const Session = require("../Models/Sessions.js")
 
 const router = express.Router()
 
@@ -40,8 +41,42 @@ router.post("/login", async(req, res) => {
         console.log(data, "data from supabase")
         if (error) throw error 
 
-        res.send({message: "Login Successful", user: data.user, token: data.session.access_token })
+        const user = await User.findOne({ email: email });
+        if (!user) {
+            throw new Error('User not found in database');
+        }
+
+        //Session creation
+        const session = await Session.create({
+            userId: user._id,
+            ipAddress: req.ip,
+            logoutTime: null
+        })
+
+        res.send({message: "Login Successful", user: data.user, token: data.session.access_token, sessionId: session._id })
+
     } catch(e) {
+        res.status(400).send({error: e.message})
+    }
+})
+
+router.post("/logout", async(req, res) => {
+    const {sessionId} = req.body
+    try {
+        const {error} = await supabase.auth.signOut()
+
+        if (error) throw error
+
+        //update Session record 
+        
+        const user = await Session.updateOne({_id: sessionId}, {$set: {"logoutTime": new Date() }})
+        console.log(user, "logout")
+        
+        if (!user) return res.status(401).send({error: "User not Found"})
+
+        res.send({ message: "Logged out successfully and updated session record !!" });
+
+    }  catch(e) {
         res.status(400).send({error: e.message})
     }
 })

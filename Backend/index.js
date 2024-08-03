@@ -19,10 +19,13 @@ const PORT = process.env.PORT || 3000
 const authRoutes = require("./Routes/auth")
 const eventsRoutes = require("./Routes/eventsRoutes")
 const userRoutes  = require("./Routes/userRoutes")
+const sessionsRoutes = require("./Routes/sessionRoutes")
 
 app.use('/auth', authRoutes)
 app.use("/events", eventsRoutes)
 app.use("/user", userRoutes)
+app.use("/sessions", sessionsRoutes)
+
 
 
 app.listen(PORT, () => {

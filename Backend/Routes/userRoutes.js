@@ -9,6 +9,7 @@ router.use(authMiddleware)
 router.put("/", async (req, res) => {
     try {
         // console.log(req.user.email, req.body)
+        // console.log(req.ip, "req ip address")
         const user = await User.updateOne({email: req.user.email}, {$set: {...req.body}})
 
         if(!user) return res.status(404).json({error: "User not Found"})
