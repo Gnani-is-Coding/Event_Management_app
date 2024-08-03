@@ -1,8 +1,10 @@
-import React from 'react';
-import './index.css'
+import React, { useState } from 'react';
+import { Edit2, Save, X } from 'lucide-react';
+import './index.css';
 
 const events = [
   {
+    id: 1,
     title: "Tech Conference 2024",
     date: "August 15, 2024",
     location: "San Francisco, CA",
@@ -10,42 +12,134 @@ const events = [
     weather: "72°F, Sunny"
   },
   {
+    id: 2,
     title: "Product Launch",
     date: "September 5, 2024",
     location: "New York, NY",
     description: "Launching our new AI-powered smart home device with interactive demos and networking opportunities.",
     weather: "78°F, Partly Cloudy"
-  }
+  },
+  // ... other events
 ];
 
-const EventCard = ({ title, date, location, description, weather }) => (
-  <div className="event-card">
-    <div className="event-details">
-      <h3 className="event-title">{title}</h3>
-      <p className="event-info">{date} • {location}</p>
-      <p className="event-description">{description}</p>
-      <div className="event-actions">
-        <span className="weather-info">{weather}</span>
-        <div>
-          <button className="btn btn-danger">Delete</button>
-          <button className="btn btn-primary">Edit</button>
+const EventCard = ({ event, onEdit, onDelete }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedEvent, setEditedEvent] = useState(event);
+
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleSave = async () => {
+    console.log(editedEvent, "editted")
+    try {
+      // Simulated API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      onEdit(editedEvent);
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error updating event:", error);
+    }
+  };
+
+  const handleCancel = () => {
+    setEditedEvent(event);
+    setIsEditing(false);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEditedEvent(prev => ({ ...prev, [name]: value }));
+  };
+
+  return (
+    <div className="event-card">
+      <div className="event-details">
+        {isEditing ? (
+          <>
+            <input
+              className="edit-input"
+              name="title"
+              value={editedEvent.title}
+              onChange={handleChange}
+            />
+            <input
+              className="edit-input"
+              name="date"
+              value={editedEvent.date}
+              onChange={handleChange}
+            />
+            <input
+              className="edit-input"
+              name="location"
+              value={editedEvent.location}
+              onChange={handleChange}
+            />
+            <textarea
+              className="edit-input"
+              name="description"
+              value={editedEvent.description}
+              onChange={handleChange}
+            />
+          </>
+        ) : (
+          <>
+            <h3 className="event-title">{event.title}</h3>
+            <p className="event-info">{event.date} • {event.location}</p>
+            <p className="event-description">{event.description}</p>
+          </>
+        )}
+        <div className="event-actions">
+          <span className="weather-info">{event.weather}</span>
+          <div>
+            {isEditing ? (
+              <div className='delete-edit-container'>
+                <button className="btn btn-primary" onClick={handleSave}><Save size={16} /> Save</button>
+                <button className="btn btn-secondary" onClick={handleCancel}><X size={16} /> Cancel</button>
+              </div>
+            ) : (
+              <div className='delete-edit-container'>
+                <button className="btn btn-danger" onClick={() => onDelete(event.id)}>Delete</button>
+                <button className="btn btn-primary" onClick={handleEdit}><Edit2 size={16} /> Edit</button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
+const EventList = () => {
+  const [eventList, setEventList] = useState(events);
 
-const EventList = () => (
+  const handleEdit = (updatedEvent) => {
+    setEventList(prevEvents => 
+      prevEvents.map(event => 
+        event.id === updatedEvent.id ? updatedEvent : event
+      )
+    );
+  };
 
-  <section id="events" className="event-list">
-    <h1>Your Upcoming Events</h1>
-    <div className="events-grid">
-      {events.map((event, index) => (
-        <EventCard key={index} {...event} />
-      ))}
-    </div>
-  </section>
-);
+  const handleDelete = (id) => {
+    setEventList(prevEvents => prevEvents.filter(event => event.id !== id));
+  };
+
+  return (
+    <section id="events" className="event-list">
+      <h1>Your Upcoming Events</h1>
+      <div className="events-grid">
+        {eventList.map((event) => (
+          <EventCard 
+            key={event.id} 
+            event={event} 
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        ))}
+      </div>
+    </section>
+  );
+};
 
 export default EventList;
