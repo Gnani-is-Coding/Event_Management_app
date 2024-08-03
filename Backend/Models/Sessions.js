@@ -10,4 +10,4 @@ const sessionsSchema = new mongoose.Schema({
 const Sessions = mongoose.model("Sessions", sessionsSchema)
 
 
-module.export = Sessions
+module.exports = Sessions

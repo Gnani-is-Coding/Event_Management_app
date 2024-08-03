@@ -14,6 +14,8 @@ function Register() {
     navigate('/login');
   };
 
+
+  //TODO: Add a Field to add Name
   return (
     <div className='register-container'>
     <div className="register-form">

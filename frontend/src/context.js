@@ -27,7 +27,7 @@ const events = [
         location: "New York, NY",
         description: "Launching our new AI-powered smart home device with interactive demos and networking opportunities.",
         weather: "78°F, Partly Cloudy"
-      },
+      }, //TODO: Make API call to weather API
       {
         id: 4,
         title: "Product Launch",
