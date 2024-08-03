@@ -1,17 +1,41 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {AlignJustify, ChevronDown} from "lucide-react" 
+import Cookies from "js-cookie" 
 import './index.css'
 
 function Header({ user, setUser }) {
   const [openMenu, setOpenMenu] = useState(false)
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  const handleLogout = async() => {
 
-    
-    setUser(null);
-    navigate('/login');
+    const url = "http://localhost:3000/auth/logout";
+    const sessionId = Cookies.get("session_id")
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${Cookies.get("jwt_token")}`
+      },
+      body: JSON.stringify({ sessionId }),
+    };
+
+    const response = await fetch(url, options);
+    const result = await response.json();
+
+    console.log(result, "result");
+    if (response.ok) {
+      Cookies.remove("jwt_token")
+      Cookies.remove("session_id")
+      
+      setUser(null);
+      navigate('/login');
+
+    } else {
+      console.error("Login failed:", result.error);
+    }
   };
 
   return (

@@ -9,7 +9,7 @@ const authMiddleware = async (req, res, next) => {
   try {
     const {data, error} = await supabase.auth.getUser(token)
 
-    if (error)  throw error 
+    if (error) throw error 
     
     // Find the user in MongoDB
     console.log(data.user)

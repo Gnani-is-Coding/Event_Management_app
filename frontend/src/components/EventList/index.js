@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Edit2, Save, X } from 'lucide-react';
 import './index.css';
 import { useEvents } from '../../context';
+import Cookies from "js-cookie"
 
 const EventCard = ({ event, onEdit, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -12,12 +13,28 @@ const EventCard = ({ event, onEdit, onDelete }) => {
   };
 
   const handleSave = async () => {
-    console.log(editedEvent, "editted")
+    
+    const url = `http://localhost:3000/events/${event._id}`
+      console.log(url, "url")
+      
     try {
       // Simulated API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const options = {
+        method: 'PUT',
+        headers: {
+          'Content-Type': "application/json",
+          'Authorization': `Bearer ${Cookies.get("jwt_token")}`
+        },
+        body: JSON.stringify({editedEvent})  
+      }
+
+      const response = await fetch(url, options);
+      const result = await response.json();
+      console.log(result, "event update result")
+
       onEdit(editedEvent);
       setIsEditing(false);
+
     } catch (error) {
       console.error("Error updating event:", error);
     }
@@ -93,12 +110,11 @@ const EventCard = ({ event, onEdit, onDelete }) => {
 
 const EventList = () => {
   const {eventList, setEventList} = useEvents()
-  console.log(eventList, "events list")
 
   const handleEdit = (updatedEvent) => {
     setEventList(prevEvents => 
       prevEvents.map(event => 
-        event.id === updatedEvent.id ? updatedEvent : event
+        event._id === updatedEvent._id ? updatedEvent : event
       )
     );
   };
@@ -113,7 +129,7 @@ const EventList = () => {
       {eventList.length > 0 ? (<div className="events-grid">
         {eventList.map((event) => (
           <EventCard 
-            key={event.id} 
+            key={event._id}
             event={event} 
             onEdit={handleEdit}
             onDelete={handleDelete}

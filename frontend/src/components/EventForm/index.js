@@ -8,7 +8,7 @@ const CreateEventForm = () => {
   const [eventDate, setEventDate] = useState('');
   const [eventLocation, setEventLocation] = useState('');
   const [eventDescription, setEventDescription] = useState('');
-  const {setEventList} = useEvents()
+  const {createEventInDB} = useEvents()
 
   
   
@@ -17,7 +17,9 @@ const CreateEventForm = () => {
     e.preventDefault();
     // Handle form submission logic here
     console.log({ eventName, eventDate, eventLocation, eventDescription });
-    setEventList(prevEvents => [...prevEvents, { title: eventName, date: eventDate, location: eventLocation, description:eventDescription }])
+
+    createEventInDB({ eventName, eventDate, eventLocation, eventDescription })
+
     setEventName('')
     setEventDate('')
     setEventLocation('')

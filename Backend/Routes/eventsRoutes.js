@@ -29,7 +29,7 @@ router.post("/", async(req, res) => {
         // const weatherInfo = await  fetch(url)
         // const weatherResponse = await weatherInfo.json()
         // console.log(weatherInfo, "info")
-
+        console.log("req.user.id", req.user.id)
         const newEvent = await Events.create({title, date, location, description, userId: req.user.id})
         
         return res.send(newEvent)
@@ -46,7 +46,7 @@ router.put("/:id", async(req, res) => {
         const event = await Events.updateOne({_id: req.params.id}, {$set: {...req.body}})
 
         if(!event) return res.status(404).json({error: "Event not Found"})
-
+        console.log(event, "event from put")
         res.send(event)
 
     } catch(e) {
