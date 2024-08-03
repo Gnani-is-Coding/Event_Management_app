@@ -9,7 +9,8 @@ router.use(authMiddleware)
 
 router.get("/", async(req, res) => {
     try {
-        const eventsList = await Events.find({})
+        const userID = req.user.id
+        const eventsList = await Events.find({userId: userID})
         console.log(eventsList, "events")
 
         return res.send(eventsList)
@@ -23,8 +24,7 @@ router.post("/", async(req, res) => {
     const {title, date, location, description} = req.body
 
     try {
-        const newEvent = await Events.create({title, date, location, description})
-        console.log(newEvent, "new event")
+        const newEvent = await Events.create({title, date, location, description, userId: req.user.id})
         
         return res.send(newEvent)
     } catch(e) {
@@ -33,11 +33,32 @@ router.post("/", async(req, res) => {
 })
 
 router.put("/:id", async(req, res) => {
-    //update a particular event 
+    const {id} = req.params
+    
+    try {
+        console.log(id, "id from put req")
+        const event = await Events.updateOne({_id: req.params.id}, {$set: {...req.body}})
+
+        if(!event) return res.status(404).json({error: "Event not Found"})
+
+        res.send(event)
+
+    } catch(e) {
+        res.status(500).send({error: e.message})
+    }
 })
 
 router.delete("/:id", async(req, res) => {
-    //delete a event 
+     try {
+        const event = await Events.deleteOne({_id: req.params.id})
+
+        if(!event) return res.status(404).json({error: "Event not Found"})
+
+        res.send({message: "Event deleted successfully"})
+        
+    } catch(e) {
+        res.status(400).send({error: e.message})
+    }
 })
 
 module.exports = router
