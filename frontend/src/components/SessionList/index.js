@@ -11,7 +11,7 @@ function SessionList() {
   }, []);
 
   const fetchSessions = async () => {
-    const url = "http://localhost:3000/sessions/"
+    const url = "https://event-management-app-4f0u.onrender.com/sessions/"
 
       const options = {
         method: 'GET',

@@ -2,16 +2,18 @@ import React, { useState } from 'react';
 import {useNavigate } from 'react-router-dom';
 import Cookies from "js-cookie"
 import './index.css'
+import { useEvents } from '../../context';
 
-function Login({ setUser }) {
+function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('')
+  const { setUser } = useEvents()
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = "http://localhost:3000/auth/login";
+    const url = "https://event-management-app-4f0u.onrender.com/auth/login";
 
     const options = {
       method: 'POST',

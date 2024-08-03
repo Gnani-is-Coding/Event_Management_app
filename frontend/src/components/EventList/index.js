@@ -71,7 +71,6 @@ const EventCard = ({ event, onEdit, onDelete }) => {
 
   const date = new Date(event.date).toUTCString()
   const temp = weatherDetails?.current?.temp_c
-  const text = weatherDetails?.current?.condition?.text
 
   return (
     <div className="event-card">
@@ -113,7 +112,7 @@ const EventCard = ({ event, onEdit, onDelete }) => {
         )}
         <div className="event-actions">
           <span className="weather-info">{temp} oC, {weatherDetails?.current?.condition?.text}
-            <img src={weatherDetails?.current?.condition?.icon} alt />
+            <img src={weatherDetails?.current?.condition?.icon} alt="icon" />
           </span>
           <div>
             {isEditing ? (

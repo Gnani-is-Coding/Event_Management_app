@@ -35,13 +35,14 @@ const ContextObject = createContext({})
 
 export const EventsContext = ({children}) => {
     const [eventList, setEventList] = useState([]);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         fetchEvents()
-    }, [])
+    }, [user])
 
     const fetchEvents = async() => {
-      const url = "http://localhost:3000/events/"
+      const url = "https://event-management-app-4f0u.onrender.com/events/"
 
       const options = {
         method: 'GET',
@@ -61,7 +62,7 @@ export const EventsContext = ({children}) => {
     }
 
     const createEventInDB = async ({ eventName, eventDate, eventLocation, eventDescription }) => {
-      const url = "http://localhost:3000/events/"
+      const url = "https://event-management-app-4f0u.onrender.com/events/"
 
       const options = {
         method: 'POST',
@@ -82,7 +83,7 @@ export const EventsContext = ({children}) => {
     }
 
     return (
-        <ContextObject.Provider value={{eventList, setEventList, createEventInDB}}> 
+        <ContextObject.Provider value={{eventList, setEventList, createEventInDB, user, setUser}}> 
             {children}
         </ContextObject.Provider>
     )

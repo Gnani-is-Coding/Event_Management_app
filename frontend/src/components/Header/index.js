@@ -3,14 +3,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import {AlignJustify, ChevronDown} from "lucide-react" 
 import Cookies from "js-cookie" 
 import './index.css'
+import { useEvents } from '../../context';
 
-function Header({ user, setUser }) {
+function Header() {
   const [openMenu, setOpenMenu] = useState(false)
+  const { user, setUser } = useEvents()
   const navigate = useNavigate();
 
   const handleLogout = async() => {
 
-    const url = "http://localhost:3000/auth/logout";
+    const url = "https://event-management-app-4f0u.onrender.com/auth/logout";
     const sessionId = Cookies.get("session_id")
 
     const options = {

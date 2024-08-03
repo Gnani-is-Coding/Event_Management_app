@@ -11,7 +11,7 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = "http://localhost:3000/auth/register";
+    const url = "https://event-management-app-4f0u.onrender.com/auth/register";
 
     const options = {
       method: 'POST',
