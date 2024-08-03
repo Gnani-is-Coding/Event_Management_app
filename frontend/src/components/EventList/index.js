@@ -1,26 +1,7 @@
 import React, { useState } from 'react';
 import { Edit2, Save, X } from 'lucide-react';
 import './index.css';
-
-const events = [
-  {
-    id: 1,
-    title: "Tech Conference 2024",
-    date: "August 15, 2024",
-    location: "San Francisco, CA",
-    description: "Annual tech conference featuring the latest innovations in AI, VR, and blockchain technologies.",
-    weather: "72°F, Sunny"
-  },
-  {
-    id: 2,
-    title: "Product Launch",
-    date: "September 5, 2024",
-    location: "New York, NY",
-    description: "Launching our new AI-powered smart home device with interactive demos and networking opportunities.",
-    weather: "78°F, Partly Cloudy"
-  },
-  // ... other events
-];
+import { useEvents } from '../../context';
 
 const EventCard = ({ event, onEdit, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -111,7 +92,8 @@ const EventCard = ({ event, onEdit, onDelete }) => {
 };
 
 const EventList = () => {
-  const [eventList, setEventList] = useState(events);
+  const {eventList, setEventList} = useEvents()
+  console.log(eventList, "events list")
 
   const handleEdit = (updatedEvent) => {
     setEventList(prevEvents => 
@@ -128,7 +110,7 @@ const EventList = () => {
   return (
     <section id="events" className="event-list">
       <h1>Your Upcoming Events</h1>
-      <div className="events-grid">
+      {eventList.length > 0 ? (<div className="events-grid">
         {eventList.map((event) => (
           <EventCard 
             key={event.id} 
@@ -137,7 +119,10 @@ const EventList = () => {
             onDelete={handleDelete}
           />
         ))}
-      </div>
+      </div>):(
+        <h1>None at the Moment</h1>
+      )}
+      
     </section>
   );
 };

@@ -1,17 +1,28 @@
 import React, { useState } from 'react';
 import './index.css'
 import EventList from '../EventList';
+import { useEvents } from '../../context';
 
 const CreateEventForm = () => {
   const [eventName, setEventName] = useState('');
   const [eventDate, setEventDate] = useState('');
   const [eventLocation, setEventLocation] = useState('');
   const [eventDescription, setEventDescription] = useState('');
+  const {setEventList} = useEvents()
+
+  
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission logic here
     console.log({ eventName, eventDate, eventLocation, eventDescription });
+    setEventList(prevEvents => [...prevEvents, { title: eventName, date: eventDate, location: eventLocation, description:eventDescription }])
+    setEventName('')
+    setEventDate('')
+    setEventLocation('')
+    setEventDescription('')
+    
   };
 
   return (
