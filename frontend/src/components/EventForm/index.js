@@ -16,7 +16,6 @@ const CreateEventForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission logic here
-    console.log({ eventName, eventDate, eventLocation, eventDescription });
 
     createEventInDB({ eventName, eventDate, eventLocation, eventDescription })
 

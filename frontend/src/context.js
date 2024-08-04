@@ -75,12 +75,14 @@ export const EventsContext = ({children}) => {
 
       const response = await fetch(url, options);
       const result = await response.json();
-      console.log(result, "result")
+      console.log(result, "created event in DB")
 
       if (response.ok) {
-        setEventList(prevEvents => [...prevEvents, { title: eventName, date: eventDate, location: eventLocation, description:eventDescription }])
+        fetchEvents()
       }
     }
+
+    // console.log(eventList, "evenyts list")
 
     return (
         <ContextObject.Provider value={{eventList, setEventList, createEventInDB, user, setUser}}> 
