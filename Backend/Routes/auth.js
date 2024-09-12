@@ -6,7 +6,7 @@ const Session = require("../Models/Sessions.js")
 const router = express.Router()
 
 router.post("/register", async (req, res) => {
-    const {name, email, password} = req.body 
+    const {name, email, password} = req.body
     // console.log(name, email, password)
 
     try{
@@ -42,12 +42,13 @@ router.post("/login", async(req, res) => {
         if (error) throw error 
 
         const user = await User.findOne({ email: email });
+        console.log(user, 'user from database')
         if (!user) {
             throw new Error('User not found in database');
         }
 
         //Session creation
-        const session = await Session.create({
+        const session = await Session.create({                             
             userId: user._id,
             ipAddress: req.ip,
             logoutTime: null
